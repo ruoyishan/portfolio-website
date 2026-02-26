@@ -1,0 +1,3657 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Responsive Images and Media - 确保所有图片和媒体响应式，防止水平滚动 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+video,
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 确保只有 html 负责全局滚动，消除双滚动条 */
+html {
+    overflow-y: auto; /* html 负责全局滚动 */
+    overflow-x: hidden;
+    height: 100%;
+}
+
+body {
+    font-family: 'Source Han Serif CN', 'Source Serif 4', serif;
+    background-color: rgba(240, 240, 240, 0.94);
+    color: #080808;
+    width: 1280px;
+    min-height: 100vh; /* 使用 min-height 而不是固定 height */
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* body 不产生滚动条，让内容自然流动 */
+    max-width: 100%;
+    height: auto; /* 高度自适应内容 */
+}
+
+/* 桌面端隐藏竖向滚动条（保留滚动功能） */
+@media (min-width: 1025px) {
+    /* 隐藏滚动条但保留滚动功能 - Webkit浏览器（Chrome, Safari, Edge） */
+    ::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
+    
+    /* Firefox */
+    html {
+        scrollbar-width: none;
+    }
+    
+    /* IE和旧版Edge */
+    body {
+        -ms-overflow-style: none;
+    }
+}
+
+/* Font Imports */
+@font-face {
+    font-family: 'Source Han Serif CN';
+    src: local('Source Han Serif CN'), local('Noto Serif SC');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'HGHB_CNKI';
+    src: local('SimHei'), local('Microsoft YaHei');
+    font-weight: 400;
+}
+
+/* Header */
+.header {
+    position: absolute;
+    top: 20px;
+    left: 147px;
+    width: 988px;
+    height: 50px;
+}
+
+.header-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.header-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.4em;
+    color: #080808;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 197px;
+    height: 45px;
+}
+
+/* 汉堡菜单按钮 - 默认隐藏（桌面端） */
+.mobile-menu-toggle {
+    display: none;
+}
+
+.header-nav {
+    position: absolute;
+    right: 0;
+    top: 17px;
+    display: flex;
+    align-items: center;
+    gap: 21px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+}
+
+.nav-text-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4em;
+    color: #080808;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.nav-text-en {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4em;
+    letter-spacing: -0.05em;
+    color: #080808;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-item:hover .nav-text-cn {
+    opacity: 0;
+}
+
+.nav-item:hover .nav-text-en {
+    opacity: 1;
+}
+
+.header-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+/* Hero Section */
+.hero {
+    position: absolute;
+    width: 1238px;
+    height: 350px;
+    left: 147px;
+    top: 190px;
+}
+
+/* Frame 11 */
+.hero-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* route */
+.hero-route {
+    width: 318px;
+    height: 1px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* move */
+.hero-move {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0px;
+    gap: 25px;
+    width: 920px;
+    height: 350px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    transition: transform 2s ease-out;
+    perspective: 1000px;
+    perspective-origin: center center;
+}
+
+/* Cube Mover - 平移容器，负责向左位移 */
+.cube-mover {
+    margin: 0 auto;
+    width: 320px;
+    height: 320px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 2s ease-out;
+}
+
+/* Cube Rotator - 旋转容器，负责立方体自身滚动 */
+.cube-rotator {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 2s ease-out;
+}
+
+/* Cube - 3D立方体容器 */
+.cube {
+    width: 320px;
+    height: 320px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+}
+
+/* Cube Face - 立方体的6个面 */
+.cube-face {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background: #D9D9D9;
+    border: none;
+    backface-visibility: hidden;
+    overflow: hidden;
+}
+
+/* Cube Video - 立方体面上的视频 */
+.cube-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Cube Image - 立方体面上的图片 */
+.cube-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 前面 */
+.cube-front {
+    transform: translateZ(160px);
+}
+
+/* 后面 - 图片在面上居中 */
+.cube-back {
+    transform: translateZ(-160px) rotateY(180deg);
+}
+
+.cube-back .cube-image {
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* 右面 */
+.cube-right {
+    transform: translateX(160px) rotateY(90deg);
+}
+
+/* 左面 */
+.cube-left {
+    transform: translateX(-160px) rotateY(-90deg);
+}
+
+/* 上面 */
+.cube-top {
+    transform: translateY(-160px) rotateX(90deg);
+}
+
+/* 下面 */
+.cube-bottom {
+    transform: translateY(160px) rotateX(-90deg);
+}
+
+/* RUOYI */
+.hero-ruoyi {
+    margin: 0 auto;
+    width: 544px;
+    height: 160px;
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 200px;
+    line-height: 80%;
+    text-align: center;
+    color: #D3D3D3;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+/* 简介 */
+.hero-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    position: absolute;
+    width: 592px;
+    height: 101px;
+    left: 440px;
+    top: 190px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.hero-intro.visible {
+    opacity: 1;
+}
+
+/* AIGC | 创意 | 数字 | 空间 | 体验 */
+.hero-tags {
+    width: 592px;
+    height: 56px;
+    font-family: 'Source Han Serif CN', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 140%;
+    color: #080808;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* Design with everything I can reach to. */
+.hero-tagline {
+    width: 592px;
+    height: 45px;
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 140%;
+    color: #707070;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* More about Me>>> - 右侧与 Online Portfolio 对齐，字号一致 */
+.hero-link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    position: absolute;
+    width: auto;
+    height: 30px;
+    right: 250px; /* 与 .selected-works 右缘对齐（hero 宽 1238px，内容区右缘距 hero 右 250px） */
+    left: auto;
+    top: 0;
+}
+
+/* Rectangle 20 */
+.hero-link-bg {
+    margin: 0 auto;
+    width: 122px;
+    height: 30px;
+    background: #F0F0F0;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    display: none;
+}
+
+/* More about Me>>> - 字号与 .works-link (Online Portfolio) 一致 */
+.hero-link {
+    margin: 0;
+    width: auto;
+    height: 28px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.4em;
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    color: #080808;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    text-decoration: none;
+}
+
+.hero-link:hover {
+    text-decoration: underline;
+}
+
+/* Selected Works Section */
+.selected-works {
+    position: absolute;
+    top: 655px;
+    left: 145px;
+    width: 990px;
+}
+
+.works-title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 54px;
+}
+
+.works-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.4em;
+    color: #080808;
+    width: 127px;
+    height: 32px;
+    text-align: center;
+}
+
+.works-link {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.4em;
+    color: #080808;
+    text-decoration: none;
+    width: 201px;
+    height: 32px;
+    text-align: right;
+}
+
+.works-link:hover {
+    text-decoration: underline;
+}
+
+.works-body {
+    display: flex;
+    align-items: center;
+    gap: 96px;
+    margin-top: -20px;
+}
+
+.works-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 180px;
+    width: 398px;
+}
+
+.work-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 398px;
+}
+
+.work-item:last-child {
+    gap: 0;
+}
+
+.work-item-title {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    text-align: left;
+    width: 398px;
+}
+
+.work-item-subtitle {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    text-align: left;
+    width: 398px;
+}
+
+.work-item-description {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4em;
+    color: #080808;
+    text-align: justify;
+    width: 398px;
+}
+
+.works-divider {
+    width: 1px;
+    height: 879px;
+    flex-shrink: 0;
+}
+
+.works-pic {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 110px;
+    align-items: center;
+}
+
+.work-image-link {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.work-image-container {
+    position: relative;
+    width: 400px;
+    height: auto;
+}
+
+.work-image-base {
+    width: 400px;
+    height: auto;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.work-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.work-image-link:hover .work-image-base {
+    opacity: 0;
+}
+
+.work-image-link:hover .work-image-overlay {
+    opacity: 1;
+}
+
+/* Other Works Section */
+.other-works {
+    position: absolute;
+    top: 1659px;
+    left: 147px;
+    width: 990px;
+}
+
+.other-works-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.4em;
+    color: #080808;
+    width: auto;
+    height: auto;
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.other-works-grid {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 990px;
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: 250px;
+    gap: 20px 45px;
+}
+
+.other-work-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.other-work-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    width: 300px;
+    height: 250px;
+    cursor: pointer;
+}
+
+.other-work-image {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    background-color: #D9D9D9;
+}
+
+.other-work-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.other-work-info {
+    width: 300px;
+    height: 39px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.other-work-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4em;
+    color: #080808;
+    text-align: center;
+    width: 300px;
+    height: 20px;
+}
+
+.other-work-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.4em;
+    color: #080808;
+    text-align: center;
+    width: 300px;
+    height: 21px;
+    margin-top: -2px;
+}
+
+/* Works Page Sections */
+.works-section {
+    position: absolute;
+    left: 147px;
+    width: 990px;
+}
+
+.works-section-first {
+    top: 150px;
+}
+
+.works-section-second {
+    top: 510px;
+}
+
+/* Works page body adjustment */
+body.works-page {
+    min-height: 1300px;
+}
+
+/* Works Page Footer */
+body.works-page .footer {
+    position: absolute;
+    top: 1208px;
+    left: 147px;
+    width: 989px;
+    height: 72px;
+}
+
+.works-section-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 986px;
+    margin-bottom: 20px;
+}
+
+.works-section-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.4em;
+    color: #080808;
+    width: auto;
+    height: auto;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.works-section-link {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.4em;
+    color: #080808;
+    text-decoration: none;
+    width: 201px;
+    height: 32px;
+    text-align: right;
+}
+
+.works-section-link:hover {
+    text-decoration: underline;
+}
+
+.works-section-second .works-section-title {
+    margin-bottom: 20px;
+}
+
+.works-section-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 990px;
+}
+
+.works-section-grid-horizontal {
+    gap: 20px;
+}
+
+.works-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.works-card-link .works-card {
+    cursor: pointer;
+}
+
+.works-section-grid-vertical {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: 250px;
+    gap: 18px 45px;
+    justify-content: start;
+}
+
+.works-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 300px;
+    height: 250px;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.works-card:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.works-card-link:hover .works-card {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+/* Works page other works section - make cards clickable */
+.works-section-second .other-work-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: contents;
+}
+
+.works-section-second .other-work-card-link .works-card {
+    cursor: pointer;
+}
+
+.works-card-image {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    background-color: #D9D9D9;
+    transition: transform 0.3s ease;
+}
+
+.works-card:hover .works-card-image,
+.works-card-link:hover .works-card-image {
+    transform: scale(1.02);
+}
+
+.works-section-grid-vertical .works-card-image {
+    height: 199.2px;
+}
+
+.works-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.works-card:hover .works-card-image img,
+.works-card-link:hover .works-card-image img {
+    transform: scale(1.05);
+}
+
+.works-card-info {
+    width: 300px;
+    height: 39px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.works-section-grid-vertical .works-card:nth-child(3) .works-card-info,
+.works-section-grid-vertical .other-work-card-link:nth-child(3) .works-card-info {
+    width: 298.01px;
+}
+
+.works-card-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4em;
+    color: #080808;
+    text-align: center;
+    margin: 0;
+}
+
+.works-card-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.4em;
+    color: #080808;
+    text-align: center;
+    width: 100%;
+    height: 21px;
+    margin: 0;
+    margin-top: -2px;
+}
+
+.works-section-grid-vertical .works-card:nth-child(3) .works-card-title-cn,
+.works-section-grid-vertical .other-work-card-link:nth-child(3) .works-card-title-cn {
+    width: 298.01px;
+    height: 20.92px;
+    margin-top: -2.08px;
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    top: 1208px;
+    left: 147px;
+    width: 989px;
+    height: 72px;
+}
+
+/* Index Page Styles */
+body.index-page {
+    min-height: 1650px;
+}
+
+/* Index Page Footer */
+body.index-page .footer {
+    position: absolute;
+    top: 1979px;
+    left: 147px;
+    width: 989px;
+    height: 72px;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    width: 62px;
+    height: 76px;
+    left: 1835px; /* 继续向右移动100px: 1735 + 100 = 1835 */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    opacity: 0.9;
+}
+
+.back-to-top-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(240, 240, 240, 0.94);
+    border: 1px solid #D3D3D3;
+    box-shadow: 2px 4px 7px 0px rgba(172, 172, 172, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-left: 1px;
+}
+
+.back-to-top-arrow {
+    width: 14px;
+    height: 17px;
+    position: absolute;
+    top: 21px;
+    left: 24px;
+}
+
+.back-to-top-text {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 350;
+    font-size: 10px;
+    line-height: 1.4em;
+    color: #ACACAC;
+    text-align: center;
+    width: 62px;
+    height: 14px;
+    margin-top: 2px;
+    letter-spacing: 0;
+}
+
+.footer-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-content {
+    position: absolute;
+    top: 11px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-copyright {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    line-height: 1.4em;
+    color: #707070;
+    width: 114px;
+    height: 14px;
+    margin-top: 14px;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 132px;
+    height: 61px;
+    margin-right: 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 21px;
+}
+
+.contact-item:first-child {
+    margin-bottom: 0;
+}
+
+.contact-item:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.contact-item:nth-child(3) {
+    margin-top: 0;
+}
+
+.contact-icon {
+    width: 17px;
+    height: 17px;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.contact-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 1.4em;
+    letter-spacing: -0.05em;
+    color: #707070;
+}
+
+/* Page Content Styles */
+.page-content {
+    position: absolute;
+    top: 150px;
+    left: 147px;
+    width: 988px;
+    min-height: 500px;
+}
+
+.page-container {
+    padding: 40px 0;
+}
+
+.page-title {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.4em;
+    color: #080808;
+    margin-bottom: 20px;
+}
+
+.page-subtitle {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    margin-bottom: 20px;
+}
+
+.page-description {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.6em;
+    color: #080808;
+}
+
+/* Experience Page Styles */
+.experience-page {
+    position: relative;
+    margin-top: 120px;
+    margin-left: 147px;
+    width: 988px;
+    min-height: 800px;
+    padding-bottom: 50px;
+    flex: 1;
+}
+
+.experience-top-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 988px;
+    height: 200px;
+    gap: 588px;
+}
+
+.experience-left-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+    width: 200px;
+}
+
+.experience-name-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+}
+
+.experience-name {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.4em;
+    color: #000000;
+    margin: 0;
+}
+
+.experience-title {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.4em;
+    color: #000000;
+    width: 140px;
+    margin: 0;
+}
+
+.experience-download {
+    width: 90px;
+    height: 24px;
+}
+
+.experience-photo {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    background-color: #D9D9D9;
+    flex-shrink: 0;
+}
+
+.photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.experience-contact {
+    position: absolute;
+    left: 0;
+    top: 238px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 197px;
+}
+
+.contact-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.contact-icon-small {
+    width: 17px;
+    height: 17px;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.contact-text-small {
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    font-size: 11px;
+    line-height: 1.4em;
+    letter-spacing: -0.05em;
+    text-align: right;
+    color: #080808;
+    width: 168px;
+}
+
+.contact-divider {
+    width: 100%;
+    height: 1px;
+    flex-shrink: 0;
+}
+
+/* 联系方式分割线与下方 section 分割线视觉统一：实线、同色、同粗细，不随 SVG 缩放变细 */
+.contact-divider line,
+.section-divider line {
+    stroke: #707070;
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+}
+
+.download-btn {
+    width: 90px;
+    height: 24px;
+    background-color: #080808;
+    border-radius: 12px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}
+
+.download-btn:hover {
+    background-color: #333333;
+}
+
+.download-text {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 350;
+    font-size: 15px;
+    line-height: 1.4em;
+    color: #FFFFFF;
+}
+
+.download-icon {
+    width: 8px;
+    height: 11px;
+}
+
+.experience-body {
+    position: absolute;
+    left: 0;
+    top: 238px;
+    width: 990px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.experience-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 725px;
+}
+
+.experience-skills-footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+    width: 725px;
+}
+
+.experience-skills-footer-container .footer {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 989px;
+    height: 72px;
+    margin: 0;
+    margin-top: -470px;
+}
+
+.experience-skills-footer-container .experience-section {
+    margin: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.experience-skills-footer-container .section-content {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* 技能语言部分的小标题使用 Medium */
+.skill-label {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1.4em;
+    color: #080808;
+}
+
+.section-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+}
+
+.section-expand {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 350;
+    font-size: 20px;
+    line-height: 1em;
+    color: #080808;
+    width: 19px;
+}
+
+.section-divider {
+    width: 100%;
+    height: 1px;
+}
+
+.section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.content-text {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 1.4em;
+    text-align: justify;
+    color: #080808;
+    margin: 0;
+}
+
+/* 个人总结部分已经通过 .content-text 设置为 300，无需额外设置 */
+
+/* 项目经历部分的 content-text 使用 Light */
+/* 项目经历是第3个 experience-section */
+.experience-body > .experience-section:nth-of-type(3) .project-content .content-text {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 1.4em;
+    text-align: justify;
+    color: #080808;
+}
+
+/* 其他部分的 project-content 使用 light */
+.project-content .content-text {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 1.4em;
+    text-align: justify;
+    color: #080808;
+}
+
+.content-text strong,
+.content-text b {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+}
+
+.education-content {
+    display: flex;
+    flex-direction: column;
+    width: 722px;
+    gap: 0;
+}
+
+.education-item {
+    position: relative;
+    height: 29px;
+    margin-bottom: 5px;
+}
+
+.education-item:last-child {
+    margin-bottom: 0;
+}
+
+.education-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.education-school {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.4em;
+    color: #080808;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.education-degree {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.4em;
+    color: #080808;
+    position: absolute;
+    left: 320px;
+    top: 0;
+}
+
+.education-time {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.4em;
+    text-align: right;
+    color: #080808;
+    width: 148px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.project-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+}
+
+.project-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 725px;
+    gap: 0;
+}
+
+.project-title {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* 项目经历部分的 project-title 使用 Medium */
+.experience-body > .experience-section:nth-of-type(3) .project-title {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4em;
+    color: #080808;
+}
+
+/* 工作经历部分的 project-title 使用 Medium */
+.experience-body > .experience-section:nth-of-type(4) .project-title {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4em;
+    color: #080808;
+}
+
+.project-time {
+    font-family: 'Source Han Sans CN', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.4em;
+    text-align: right;
+    color: #080808;
+    width: 148px;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* PJ1 Page Styles */
+body.pj1-page {
+    min-height: 18500px;
+}
+
+.pj1-title-section {
+    position: absolute;
+    top: 120px;
+    left: 147px;
+    width: 398px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.pj1-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.pj1-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.pj1-description {
+    position: absolute;
+    top: 248px;
+    left: 145px;
+    width: 990px;
+}
+
+.pj1-description-text {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #080808;
+    text-align: justify;
+    margin: 0;
+    width: 990px;
+}
+
+.pj1-images-section {
+    position: absolute;
+    top: 378px;
+    left: 145px;
+    width: 990px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pj1-image-container {
+    width: 990px;
+    margin-bottom: 0;
+}
+
+.pj1-image-container:last-child {
+    margin-bottom: 0;
+}
+
+.pj1-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pj1-video-container {
+    width: 990px;
+    margin-bottom: 0;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.pj1-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* PJ1 Footer */
+body.pj1-page .footer {
+    position: absolute;
+    top: 18408px;
+    left: 145px;
+    width: 989px;
+    height: 72px;
+}
+
+/* PJ2 Page Styles */
+body.pj2-page {
+    min-height: 24700px;
+}
+
+.pj2-title-section {
+    position: absolute;
+    top: 120px;
+    left: 147px;
+    width: 398px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.pj2-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+    white-space: nowrap;
+}
+
+.pj2-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.pj2-description {
+    position: absolute;
+    top: 248px;
+    left: 145px;
+    width: 990px;
+}
+
+.pj2-description-text {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #080808;
+    text-align: justify;
+    margin: 0;
+    width: 990px;
+}
+
+.pj2-images-section {
+    position: absolute;
+    top: 378px;
+    left: 145px;
+    width: 990px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pj2-image-container {
+    width: 990px;
+    margin-bottom: 0;
+}
+
+.pj2-image-container:last-child {
+    margin-bottom: 0;
+}
+
+.pj2-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* PJ2 Footer */
+body.pj2-page .footer {
+    position: absolute;
+    top: 24608px;
+    left: 145px;
+    width: 989px;
+    height: 72px;
+}
+
+/* PJ3 Page Styles */
+body.pj3-page {
+    min-height: 16000px;
+}
+
+.pj3-title-section {
+    position: absolute;
+    top: 120px;
+    left: 147px;
+    width: 398px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.pj3-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.pj3-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.pj3-description {
+    position: absolute;
+    top: 248px;
+    left: 145px;
+    width: 990px;
+}
+
+.pj3-description-text {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #080808;
+    text-align: justify;
+    margin: 0;
+    width: 990px;
+}
+
+.pj3-images-section {
+    position: absolute;
+    top: 378px;
+    left: 145px;
+    width: 990px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pj3-image-container {
+    width: 990px;
+    margin-bottom: 0;
+}
+
+.pj3-image-container:last-child {
+    margin-bottom: 0;
+}
+
+.pj3-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pj3-video-container {
+    width: 990px;
+    margin-bottom: 0;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.pj3-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* PJ3 Footer */
+body.pj3-page .footer {
+    position: absolute;
+    top: 15908px;
+    left: 145px;
+    width: 989px;
+    height: 72px;
+}
+
+/* OW1 Page Styles */
+body.ow1-page {
+    min-height: 6800px;
+}
+
+.ow1-title-section {
+    position: absolute;
+    top: 120px;
+    left: 147px;
+    width: 398px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.ow1-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+    white-space: nowrap;
+}
+
+.ow1-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.ow1-description {
+    position: absolute;
+    top: 248px;
+    left: 145px;
+    width: 990px;
+}
+
+.ow1-description-text {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #080808;
+    text-align: justify;
+    margin: 0;
+    width: 990px;
+}
+
+.ow1-images-section {
+    position: absolute;
+    top: 378px;
+    left: 145px;
+    width: 990px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ow1-image-container {
+    width: 990px;
+    margin-bottom: 0;
+}
+
+.ow1-image-container:last-child {
+    margin-bottom: 0;
+}
+
+.ow1-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* OW1 Footer */
+body.ow1-page .footer {
+    position: absolute;
+    top: 6708px;
+    left: 145px;
+    width: 989px;
+    height: 72px;
+}
+
+/* OW2 Page Styles */
+body.ow2-page {
+    min-height: 5400px;
+}
+
+.ow2-title-section {
+    position: absolute;
+    top: 120px;
+    left: 147px;
+    width: 398px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.ow2-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.ow2-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.ow2-description {
+    position: absolute;
+    top: 248px;
+    left: 145px;
+    width: 990px;
+}
+
+.ow2-description-text {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #080808;
+    text-align: justify;
+    margin: 0;
+    width: 990px;
+}
+
+.ow2-images-section {
+    position: absolute;
+    top: 378px;
+    left: 145px;
+    width: 990px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ow2-image-container {
+    width: 990px;
+    margin-bottom: 0;
+}
+
+.ow2-image-container:last-child {
+    margin-bottom: 0;
+}
+
+.ow2-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* OW2 Footer */
+body.ow2-page .footer {
+    position: absolute;
+    top: 5308px;
+    left: 145px;
+    width: 989px;
+    height: 72px;
+}
+
+/* OW3 Page Styles */
+body.ow3-page {
+    min-height: 11200px;
+}
+
+.ow3-title-section {
+    position: absolute;
+    top: 120px;
+    left: 147px;
+    width: 398px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.ow3-title-en {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.ow3-title-cn {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #080808;
+    margin: 0;
+    width: 398px;
+}
+
+.ow3-description {
+    position: absolute;
+    top: 248px;
+    left: 145px;
+    width: 990px;
+}
+
+.ow3-description-text {
+    font-family: 'Source Han Serif CN', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #080808;
+    text-align: justify;
+    margin: 0;
+    width: 990px;
+}
+
+.ow3-images-section {
+    position: absolute;
+    top: 378px;
+    left: 145px;
+    width: 990px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ow3-image-container {
+    width: 990px;
+    margin-bottom: 0;
+}
+
+.ow3-image-container:last-child {
+    margin-bottom: 0;
+}
+
+.ow3-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.ow3-grid-container {
+    width: 990px;
+    display: grid;
+    grid-template-columns: repeat(2, 495px);
+    grid-template-rows: repeat(3, 330px);
+    gap: 0;
+    margin-bottom: 0;
+}
+
+.ow3-grid-item {
+    width: 495px;
+    height: 330px;
+    overflow: hidden;
+}
+
+.ow3-grid-item .ow3-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* OW3 Footer */
+body.ow3-page .footer {
+    position: absolute;
+    top: 11108px;
+    left: 145px;
+    width: 989px;
+    height: 72px;
+}
+
+/* ============================================
+   Responsive Styles - Tablet & Mobile
+   ============================================ */
+
+/* Tablet Styles (max-width: 1024px) */
+@media (max-width: 1024px) {
+    body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    body.index-page {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* 主容器宽度设为90%，保留适当留白 */
+    body.index-page {
+        padding: 0 5%;
+    }
+
+    /* Header 调整 */
+    .header {
+        position: relative;
+        top: 20px;
+        left: 0;
+        width: 90%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .header-container {
+        width: 100%;
+    }
+
+    .header-title {
+        font-size: 28px;
+    }
+
+    .header-nav {
+        gap: 20px;
+    }
+
+    .nav-text-cn {
+        font-size: 18px;
+    }
+
+    .nav-text-en {
+        font-size: 15px;
+    }
+
+    /* Hero Section - 字体微调 */
+    .hero {
+        position: relative;
+        width: 90%;
+        left: 0;
+        margin: 40px auto;
+    }
+
+    .hero-tags {
+        font-size: 36px;
+        line-height: 1.2;
+    }
+
+    .hero-tagline {
+        font-size: 26px;
+    }
+
+    .hero-ruoyi {
+        font-size: 160px;
+    }
+
+    /* Selected Works - 图文比例调整或上下堆叠 */
+    .selected-works {
+        position: relative;
+        width: 90%;
+        left: 0;
+        margin: 60px auto;
+    }
+
+    .works-body {
+        gap: 60px;
+    }
+
+    /* 如果太挤，改为上下堆叠 */
+    @media (max-width: 900px) {
+        .works-body {
+            flex-direction: column;
+        }
+
+        .works-divider {
+            display: none;
+        }
+
+        .works-titles {
+            width: 100%;
+        }
+
+        .works-pic {
+            width: 100%;
+        }
+
+        .work-image-container {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    /* Other Works 调整 */
+    .other-works {
+        position: relative;
+        width: 90%;
+        left: 0;
+        margin: 60px auto;
+    }
+
+    .other-works-grid {
+        position: relative;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    /* Footer 调整 */
+    body.index-page .footer {
+        position: relative;
+        width: 90%;
+        left: 0;
+        margin: 60px auto 0;
+    }
+
+    .back-to-top {
+        right: 5%;
+    }
+}
+
+/* Mobile Styles (max-width: 767px) - 全站共用同一套留白变量 */
+@media (max-width: 767px) {
+    /* 全站移动端留白变量：左右各 20px，主内容最大宽度 = 100vw - 40px，与 Works 一致 */
+    :root {
+        --page-margin: 20px;
+        --mobile-padding-x: var(--page-margin);
+        --mobile-content-max: calc(100vw - 2 * var(--page-margin));
+    }
+
+    body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* 全站移动端：主内容区与 Header 同边距，使用同一套 --page-margin */
+    body.index-page,
+    body.works-page,
+    body.pj1-page,
+    body.pj2-page,
+    body.pj3-page,
+    body.ow1-page,
+    body.ow2-page,
+    body.ow3-page,
+    body.page-experience {
+        padding-left: var(--page-margin);
+        padding-right: var(--page-margin);
+        box-sizing: border-box;
+    }
+
+    /* Index 专属：min-height 等 */
+    body.index-page {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 var(--page-margin);
+        min-height: auto;
+        box-sizing: border-box;
+    }
+
+    /* 移动端所有图片不超出内容区，与 Header 文字边界对齐 */
+    body.index-page img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    /* Works 页面：与 Index 同边距、同对齐；取消高度强制，Footer 紧跟内容 */
+    body.works-page {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 var(--page-margin);
+        min-height: auto;
+        justify-content: flex-start;
+        box-sizing: border-box;
+    }
+
+    body.works-page img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    /* Header 导航栏 - 使用统一边距，与内容区对齐基准一致 */
+    .header {
+        position: relative;
+        top: 15px;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding-left: var(--page-margin);
+        padding-right: var(--page-margin);
+        box-sizing: border-box;
+    }
+
+    .header-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0 4px; /* 缩减与下方装饰线的间距，视觉约 2–4px */
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .header-title {
+        position: relative;
+        font-size: 22px;
+        width: auto;
+        height: auto;
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        order: 0;
+    }
+
+    /* 汉堡菜单按钮 - 移动端隐藏 */
+    .mobile-menu-toggle {
+        display: none;
+    }
+
+    /* 导航“作品 经历”完全靠右：清除宽度限制，强制右对齐 */
+    .header-nav {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: auto;
+        max-width: none;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        padding: 0;
+        margin-left: auto; /* 方案B：强制靠右 */
+        margin-right: 0;
+        margin-bottom: 0;
+        background: transparent;
+        box-shadow: none;
+        justify-content: flex-end;
+        flex-shrink: 0;
+        order: 1;
+    }
+
+    .nav-item {
+        width: auto;
+        padding: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+        white-space: nowrap; /* 不换行 */
+    }
+
+    .nav-text-cn {
+        font-size: 14px;
+        opacity: 1;
+        white-space: nowrap; /* 不换行 */
+    }
+
+    .nav-text-en {
+        font-size: 12px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        white-space: nowrap; /* 不换行 */
+    }
+
+    .nav-item:hover .nav-text-cn {
+        opacity: 0;
+    }
+
+    .nav-item:hover .nav-text-en {
+        opacity: 1;
+    }
+
+    /* 装饰线：负 margin 向上靠近文字，视觉间隙约 2–4px */
+    .header-line {
+        position: relative;
+        width: 100%;
+        margin-top: -2px; /* 负值向上靠近导航文字 */
+        flex-basis: 100%;
+        order: 10;
+    }
+
+    /* Hero Section - 强制与 Header 有效宽度一致 */
+    .hero {
+        position: relative;
+        width: 100%;
+        max-width: var(--mobile-content-max);
+        height: auto;
+        left: 0;
+        top: 0;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        width: 100%;
+        max-width: var(--mobile-content-max);
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
+    /* 移动端 Hero：More about Me 与 Selected works 的 Online Portfolio 右侧对齐 */
+    .hero-link-container {
+        order: 0;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0;
+        margin-bottom: -15px; /* 负值压缩与立方体之间蓝框，视觉约 5px */
+        justify-content: flex-end;
+        padding: 0;
+        position: relative;
+        left: 0;
+        top: 0;
+        box-sizing: border-box;
+    }
+
+    .hero-link {
+        text-align: right;
+        font-size: 14px; /* 与 .works-link (Online Portfolio) 一致 */
+        line-height: 1.0; /* 收紧行高，防止撑大蓝框 */
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    /* 立方体父级：强制 Header 宽度，min-width 0 防止撑开 */
+    .hero-top {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: var(--mobile-content-max);
+        min-width: 0;
+        height: auto;
+        order: 1;
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
+    /* 立方体容器：强制 Header 宽度，min-width:0 防止撑开，防止 3D 溢出 */
+    .hero-move {
+        width: 90vw;
+        max-width: var(--mobile-content-max);
+        min-width: 0;
+        height: 80vw;
+        max-height: 320px;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
+        transform: none !important;
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        perspective: 1400px;
+        perspective-origin: center center;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    /* 移动端不显示 RUOYI 文字 */
+    .hero-ruoyi {
+        display: none !important;
+    }
+
+    .cube-mover {
+        width: 200px;
+        max-width: 100%;
+        height: 200px;
+        margin: 0 auto;
+        transform: none !important;
+        overflow: visible;
+        transform-style: preserve-3d;
+        box-sizing: border-box;
+    }
+
+    /* 不写死 transform，让 JS 设置 rotateY(-180deg) 并触发 2s 过渡动画 */
+    .cube-rotator {
+        transform-style: preserve-3d;
+        transition: transform 2s ease-out;
+        box-sizing: border-box;
+    }
+
+    .cube {
+        width: 200px;
+        max-width: 100%;
+        height: 200px;
+        transform-style: preserve-3d;
+        box-sizing: border-box;
+    }
+
+    /* 立方体面：固定比例，max-width 100% 防止溢出 */
+    .hero-move .cube-face {
+        width: 200px;
+        height: 200px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-move .cube-front { transform: translateZ(100px); }
+    .hero-move .cube-back { transform: translateZ(-100px) rotateY(180deg); }
+    .hero-move .cube-right { transform: translateX(100px) rotateY(90deg); }
+    .hero-move .cube-left { transform: translateX(-100px) rotateY(-90deg); }
+    .hero-move .cube-top { transform: translateY(-100px) rotateX(90deg); }
+    .hero-move .cube-bottom { transform: translateY(100px) rotateX(-90deg); }
+
+    /* Hero Intro - 负 margin 压缩与立方体之间蓝框，视觉约 5px */
+    .hero-intro {
+        position: relative;
+        width: 100%;
+        height: auto;
+        left: 0;
+        top: 0;
+        opacity: 1;
+        order: 2;
+        text-align: center;
+        align-items: center;
+        padding-top: 0;
+        margin-top: -10px; /* 负值压缩蓝框，视觉约 5px */
+        box-sizing: border-box;
+    }
+
+    .hero-tags {
+        width: 100%;
+        font-size: 24px;
+        height: auto;
+        text-align: center;
+        line-height: 1.0; /* 收紧行高，防止撑大蓝框 */
+    }
+
+    .hero-tagline {
+        width: 100%;
+        font-size: 18px;
+        height: auto;
+        text-align: center;
+        line-height: 1.0; /* 收紧行高，防止撑大蓝框 */
+        margin-top: 6px;
+    }
+
+
+    /* Selected Works Section - 强制与 Header 有效宽度一致 */
+    .selected-works {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: var(--mobile-content-max);
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* 蓝框与图片同宽、同对齐基准，文字与图片左右边缘对齐 */
+    .works-title-section {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 25px;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .works-title {
+        width: auto;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .works-link {
+        width: auto;
+        font-size: 14px;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .works-body {
+        flex-direction: column;
+        gap: 0;
+        margin-top: 0;
+        align-items: stretch;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* 隐藏纵向分割线 */
+    .works-divider {
+        display: none;
+    }
+
+    /* 移动端：让 works-titles 和 works-pic 都成为 flex 子元素，使用 order 重新排序 */
+    .works-titles {
+        width: 100%;
+        gap: 0;
+        display: contents; /* 让子元素直接成为 works-body 的子元素 */
+    }
+
+    .works-pic {
+        width: 100%;
+        gap: 0;
+        display: contents; /* 让子元素直接成为 works-body 的子元素 */
+    }
+
+    /* 使用 order 属性重新排序：图片在上，文字在下 */
+    .work-image-link[data-work="1"] {
+        order: 1; /* PJ1 图片先显示 */
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .work-item[data-work="1"] {
+        order: 2; /* PJ1 文字后显示 */
+        margin-bottom: 40px;
+    }
+
+    .work-image-link[data-work="2"] {
+        order: 3; /* PJ2 图片 */
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .work-item[data-work="2"] {
+        order: 4; /* PJ2 文字 */
+        margin-bottom: 40px;
+    }
+
+    .work-image-link[data-work="3"] {
+        order: 5; /* PJ3 图片 */
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .work-item[data-work="3"] {
+        order: 6; /* PJ3 文字 */
+        margin-bottom: 0;
+    }
+
+    .work-item {
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .work-item-title {
+        width: 100%;
+        font-size: 20px;
+        line-height: 1.3;
+        text-align: center;
+    }
+
+    .work-item-subtitle {
+        width: 100%;
+        font-size: 18px;
+        line-height: 1.3;
+        text-align: center;
+    }
+
+    .work-item-description {
+        width: 100%;
+        font-size: 13px;
+        line-height: 1.4;
+        text-align: center;
+    }
+
+    /* 方案B：图片容器 82vw 并限制为 Header 宽度，与 Head 文字边缘对齐 */
+    .work-image-container {
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin: 0 auto;
+        margin-bottom: 0;
+        box-sizing: border-box;
+    }
+
+    .work-image-base,
+    .work-image-overlay {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        box-sizing: border-box;
+    }
+
+    /* Other Works Section - 与上方 Selected works 等内容左右对齐（82vw） */
+    .other-works {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .other-works-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .other-works-grid {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        gap: 12px;
+        box-sizing: border-box;
+    }
+
+    /* 项目卡片：与上方内容同宽，两列等分，标题与图片居中 */
+    .other-work-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .other-work-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        box-sizing: border-box;
+    }
+
+    .other-work-image img {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        box-sizing: border-box;
+    }
+
+    .other-work-info {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 隐藏英文标题 */
+    .other-work-title-en {
+        display: none;
+    }
+
+    .other-work-title-cn {
+        width: 100%;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    /* ========== Works 页面移动端（排版参考 Index） ========== */
+    .works-section {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0;
+        padding: 0;
+        padding-bottom: 0;
+        height: auto;
+        min-height: auto;
+        box-sizing: border-box;
+    }
+
+    .works-section-first {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        padding-bottom: 0;
+    }
+
+    .works-section-second {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        height: auto;
+        min-height: auto;
+        padding-bottom: 0;
+    }
+
+    .works-section-grid-vertical,
+    .works-section-grid-horizontal {
+        height: auto;
+        min-height: auto;
+    }
+
+    .works-section-header {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .works-section-title {
+        font-size: 16px;
+    }
+
+    .works-section-second .works-section-title {
+        margin-bottom: 10px;
+    }
+
+    .works-section-link {
+        font-size: 14px;
+        width: auto;
+        height: auto;
+    }
+
+    /* Selected works 区域：与 Other works 一致，两列网格 */
+    .works-section-grid-horizontal {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        width: 100%;
+        max-width: 100%;
+        gap: 12px;
+    }
+
+    .works-section-grid-horizontal .works-card-link {
+        width: 100%;
+    }
+
+    .works-section-grid-horizontal .works-card {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        align-items: center;
+    }
+
+    .works-section-grid-horizontal .works-card-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+    }
+
+    .works-section-grid-horizontal .works-card-info {
+        width: 100%;
+        height: auto;
+    }
+
+    .works-section-grid-horizontal .works-card-title-en {
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .works-section-grid-horizontal .works-card-title-cn {
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+        height: auto;
+    }
+
+    /* Works 页面手机端：隐藏卡片英文标题 */
+    .works-section-grid-horizontal .works-card-title-en,
+    .works-section-grid-vertical .works-card-title-en {
+        display: none;
+    }
+
+    /* Other works 区域：两列网格，与 Index 一致 */
+    .works-section-grid-vertical {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        width: 100%;
+        max-width: 100%;
+        gap: 12px;
+    }
+
+    .works-section-second .other-work-card-link {
+        display: block;
+    }
+
+    .works-section-grid-vertical .works-card,
+    .works-section-grid-vertical .other-work-card-link .works-card {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        align-items: center;
+    }
+
+    .works-section-grid-vertical .works-card-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+    }
+
+    .works-section-grid-vertical .works-card-info,
+    .works-section-grid-vertical .other-work-card-link .works-card-info {
+        width: 100%;
+        height: auto;
+    }
+
+    .works-section-grid-vertical .works-card-title-en {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .works-section-grid-vertical .works-card-title-cn {
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+        height: auto;
+    }
+
+    .works-section-grid-vertical .works-card:nth-child(3) .works-card-info,
+    .works-section-grid-vertical .other-work-card-link:nth-child(3) .works-card-info,
+    .works-section-grid-vertical .works-card:nth-child(3) .works-card-title-cn,
+    .works-section-grid-vertical .other-work-card-link:nth-child(3) .works-card-title-cn {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 全站 Footer：与 Works 一致，两端对齐，版权居左、联系方式居右（图标左文字右），与 Header 同 padding */
+    body.index-page .footer,
+    body.works-page .footer,
+    body.pj1-page .footer,
+    body.pj2-page .footer,
+    body.pj3-page .footer,
+    body.ow1-page .footer,
+    body.ow2-page .footer,
+    body.ow3-page .footer,
+    body.page-experience .footer {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 0;
+        margin: 0 auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 0 var(--page-margin);
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        box-sizing: border-box;
+    }
+
+    .footer-line {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    /* 版权靠左、联系方式靠右；gap -10px 使文字部分上移 */
+    .footer-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-top: -10px;
+        margin-bottom: 0;
+    }
+
+    .footer-copyright {
+        font-size: 10px;
+        text-align: left;
+        margin: 0;
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    /* 联系方式区域：每行图标居左、文字居右；行间距 0 */
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        margin: 0;
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .footer-contact .contact-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .footer-contact .contact-icon {
+        width: 14px;
+        height: 14px;
+        opacity: 0.8;
+        flex-shrink: 0;
+    }
+
+    .contact-text {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    /* Back to Top Button - 全站统一：右下角固定、完美圆形、不缩放不移位 */
+    .back-to-top {
+        left: auto;
+        top: auto;
+        right: 20px;
+        bottom: 20px;
+        transform: none;
+        width: auto;
+        height: auto;
+        min-width: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+    }
+
+    .back-to-top-circle {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        aspect-ratio: 1 / 1;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0;
+        border-radius: 50%;
+    }
+
+    .back-to-top-arrow {
+        flex-shrink: 0;
+        position: static;
+        top: auto;
+        left: auto;
+        width: 14px;
+        height: 17px;
+    }
+
+    .back-to-top-text {
+        font-size: 8px;
+        text-align: center;
+        margin: 0;
+        margin-left: 0;
+        margin-top: 4px;
+        width: auto;
+        max-width: 60px;
+    }
+
+    /* 减小正文行高，间距压缩 */
+    p {
+        line-height: 1.4;
+    }
+
+    /* PJ1 移动端适配：图片与文字容器宽度 82vw，与 Header 对齐 */
+    body.pj1-page {
+        padding: 0 var(--page-margin);
+        min-height: auto;
+        box-sizing: border-box;
+    }
+    body.pj1-page .pj1-title-section,
+    body.pj1-page .pj1-description,
+    body.pj1-page .pj1-images-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+    body.pj1-page .pj1-title-section {
+        margin-top: 20px;
+        margin-bottom: 0;
+        gap: 0;
+    }
+    body.pj1-page .pj1-description {
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+    body.pj1-page .pj1-images-section {
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+    body.pj1-page .pj1-title-en,
+    body.pj1-page .pj1-title-cn {
+        width: 100%;
+        max-width: 100%;
+    }
+    body.pj1-page .pj1-title-en {
+        font-family: 'Source Serif 4', serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.3em;
+    }
+    body.pj1-page .pj1-title-cn {
+        font-size: 20px;
+        line-height: 1.4em;
+    }
+    body.pj1-page .pj1-description-text {
+        width: 100%;
+        max-width: 100%;
+        font-size: 9px;
+        line-height: 1.5em;
+        box-sizing: border-box;
+    }
+    body.pj1-page .pj1-image-container,
+    body.pj1-page .pj1-video-container {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+    }
+    body.pj1-page .pj1-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+    body.pj1-page section {
+        position: relative;
+    }
+
+    /* PJ2 移动端适配：与 PJ1 一致，82vw 容器、字号缩小、图片居中 */
+    body.pj2-page .pj2-title-section,
+    body.pj2-page .pj2-description,
+    body.pj2-page .pj2-images-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+    body.pj2-page .pj2-title-section { margin-top: 20px; margin-bottom: 0; gap: 0; }
+    body.pj2-page .pj2-description { margin-top: 10px; margin-bottom: 0; }
+    body.pj2-page .pj2-images-section { margin-top: 20px; margin-bottom: 0; }
+    body.pj2-page .pj2-title-en,
+    body.pj2-page .pj2-title-cn { width: 100%; max-width: 100%; }
+    body.pj2-page .pj2-title-en {
+        font-family: 'Source Serif 4', serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.3em;
+    }
+    body.pj2-page .pj2-title-cn { font-size: 20px; line-height: 1.4em; }
+    body.pj2-page .pj2-description-text {
+        width: 100%; max-width: 100%; font-size: 9px; line-height: 1.5em; box-sizing: border-box;
+    }
+    body.pj2-page .pj2-image-container { width: 100%; max-width: 100%; box-sizing: border-box; display: flex; justify-content: center; }
+    body.pj2-page .pj2-image {
+        width: 100%; max-width: 100%; height: auto; display: block; margin-left: auto; margin-right: auto; box-sizing: border-box;
+    }
+    body.pj2-page section { position: relative; }
+
+    /* PJ3 移动端适配：与 PJ1 一致 */
+    body.pj3-page .pj3-title-section,
+    body.pj3-page .pj3-description,
+    body.pj3-page .pj3-images-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+    body.pj3-page .pj3-title-section { margin-top: 20px; margin-bottom: 0; gap: 0; }
+    body.pj3-page .pj3-description { margin-top: 10px; margin-bottom: 0; }
+    body.pj3-page .pj3-images-section { margin-top: 20px; margin-bottom: 0; }
+    body.pj3-page .pj3-title-en,
+    body.pj3-page .pj3-title-cn { width: 100%; max-width: 100%; }
+    body.pj3-page .pj3-title-en {
+        font-family: 'Source Serif 4', serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.3em;
+    }
+    body.pj3-page .pj3-title-cn { font-size: 20px; line-height: 1.4em; }
+    body.pj3-page .pj3-description-text {
+        width: 100%; max-width: 100%; font-size: 9px; line-height: 1.5em; box-sizing: border-box;
+    }
+    body.pj3-page .pj3-image-container,
+    body.pj3-page .pj3-video-container { width: 100%; max-width: 100%; box-sizing: border-box; display: flex; justify-content: center; }
+    body.pj3-page .pj3-image {
+        width: 100%; max-width: 100%; height: auto; display: block; margin-left: auto; margin-right: auto; box-sizing: border-box;
+    }
+    body.pj3-page section { position: relative; }
+
+    /* OW1 移动端适配：与 PJ1 一致 */
+    body.ow1-page .ow1-title-section,
+    body.ow1-page .ow1-description,
+    body.ow1-page .ow1-images-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+    body.ow1-page .ow1-title-section { margin-top: 20px; margin-bottom: 0; gap: 0; }
+    body.ow1-page .ow1-description { margin-top: 10px; margin-bottom: 0; }
+    body.ow1-page .ow1-images-section { margin-top: 20px; margin-bottom: 0; }
+    body.ow1-page .ow1-title-en,
+    body.ow1-page .ow1-title-cn { width: 100%; max-width: 100%; }
+    body.ow1-page .ow1-title-en {
+        font-family: 'Source Serif 4', serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.3em;
+    }
+    body.ow1-page .ow1-title-cn { font-size: 20px; line-height: 1.4em; }
+    body.ow1-page .ow1-description-text {
+        width: 100%; max-width: 100%; font-size: 9px; line-height: 1.5em; box-sizing: border-box;
+    }
+    body.ow1-page .ow1-image-container { width: 100%; max-width: 100%; box-sizing: border-box; display: flex; justify-content: center; }
+    body.ow1-page .ow1-image {
+        width: 100%; max-width: 100%; height: auto; display: block; margin-left: auto; margin-right: auto; box-sizing: border-box;
+    }
+    body.ow1-page section { position: relative; }
+
+    /* OW2 移动端适配：与 PJ1 一致 */
+    body.ow2-page .ow2-title-section,
+    body.ow2-page .ow2-description,
+    body.ow2-page .ow2-images-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+    body.ow2-page .ow2-title-section { margin-top: 20px; margin-bottom: 0; gap: 0; }
+    body.ow2-page .ow2-description { margin-top: 10px; margin-bottom: 0; }
+    body.ow2-page .ow2-images-section { margin-top: 20px; margin-bottom: 0; }
+    body.ow2-page .ow2-title-en,
+    body.ow2-page .ow2-title-cn { width: 100%; max-width: 100%; }
+    body.ow2-page .ow2-title-en {
+        font-family: 'Source Serif 4', serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.3em;
+    }
+    body.ow2-page .ow2-title-cn { font-size: 20px; line-height: 1.4em; }
+    body.ow2-page .ow2-description-text {
+        width: 100%; max-width: 100%; font-size: 9px; line-height: 1.5em; box-sizing: border-box;
+    }
+    body.ow2-page .ow2-image-container { width: 100%; max-width: 100%; box-sizing: border-box; display: flex; justify-content: center; }
+    body.ow2-page .ow2-image {
+        width: 100%; max-width: 100%; height: auto; display: block; margin-left: auto; margin-right: auto; box-sizing: border-box;
+    }
+    body.ow2-page section { position: relative; }
+
+    /* OW3 移动端适配：与 PJ1 一致，含 grid 容器 */
+    body.ow3-page .ow3-title-section,
+    body.ow3-page .ow3-description,
+    body.ow3-page .ow3-images-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+    body.ow3-page .ow3-title-section { margin-top: 20px; margin-bottom: 0; gap: 0; }
+    body.ow3-page .ow3-description { margin-top: 10px; margin-bottom: 0; }
+    body.ow3-page .ow3-images-section { margin-top: 20px; margin-bottom: 0; }
+    body.ow3-page .ow3-title-en,
+    body.ow3-page .ow3-title-cn { width: 100%; max-width: 100%; }
+    body.ow3-page .ow3-title-en {
+        font-family: 'Source Serif 4', serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.3em;
+    }
+    body.ow3-page .ow3-title-cn { font-size: 20px; line-height: 1.4em; }
+    body.ow3-page .ow3-description-text {
+        width: 100%; max-width: 100%; font-size: 9px; line-height: 1.5em; box-sizing: border-box;
+    }
+    body.ow3-page .ow3-image-container { width: 100%; max-width: 100%; box-sizing: border-box; display: flex; justify-content: center; }
+    body.ow3-page .ow3-grid-container {
+        width: 100%; max-width: 100%; box-sizing: border-box;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        gap: 8px;
+    }
+    body.ow3-page .ow3-grid-item {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+    body.ow3-page .ow3-image {
+        width: 100%; max-width: 100%; height: auto; display: block; margin-left: auto; margin-right: auto; box-sizing: border-box;
+    }
+    body.ow3-page .ow3-grid-item .ow3-image { width: 100%; height: auto; object-fit: cover; }
+    body.ow3-page section { position: relative; }
+
+    /* Experience 页面移动端适配：与 Works/PJ 一致 82vw 容器、流式布局、字号缩小 */
+    body.page-experience .experience-page {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 82vw;
+        max-width: var(--mobile-content-max);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 0;
+        padding-bottom: 20px;
+        box-sizing: border-box;
+    }
+    body.page-experience .experience-top-section {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        height: auto;
+        gap: 16px;
+    }
+    body.page-experience .experience-left-group {
+        width: auto;
+        max-width: calc(100% - 166px);
+        height: auto;
+        gap: 12px;
+        flex-shrink: 0;
+        transform: scale(0.75);
+        transform-origin: left top;
+    }
+    body.page-experience .experience-name-section {
+        width: 100%;
+    }
+    body.page-experience .experience-name {
+        font-size: 24px;
+        line-height: 1.25em;
+    }
+    body.page-experience .experience-title {
+        font-size: 13px;
+        width: auto;
+    }
+    /* 照片 150×150px，移至右上角（蓝框位置） */
+    body.page-experience .experience-photo {
+        width: 150px;
+        height: 150px;
+        min-width: 150px;
+        min-height: 150px;
+        flex-shrink: 0;
+        order: 2;
+    }
+    body.page-experience .experience-left-group {
+        order: 1;
+    }
+    body.page-experience .experience-photo .photo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    body.page-experience .experience-contact {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        margin-top: 20px;
+        gap: 8px;
+    }
+    body.page-experience .contact-divider {
+        width: 100%;
+        max-width: 100%;
+        display: block;
+        flex-basis: 100%;
+        aspect-ratio: auto;
+    }
+    body.page-experience .contact-icon-small {
+        width: 17px;
+        height: 17px;
+    }
+    body.page-experience .contact-text-small {
+        font-size: 10px;
+        width: auto;
+    }
+    body.page-experience .experience-body {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        margin-top: 24px;
+        align-items: stretch;
+    }
+    body.page-experience .experience-section,
+    body.page-experience .experience-skills-footer-container {
+        width: 100%;
+        max-width: 100%;
+    }
+    body.page-experience .experience-skills-footer-container {
+        margin-top: 20px;
+    }
+    body.page-experience .experience-skills-footer-container .footer {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    body.page-experience .section-title {
+        font-size: 14px;
+    }
+    body.page-experience .section-divider {
+        width: 100%;
+    }
+    body.page-experience .content-text {
+        font-size: 10px;
+        line-height: 1.45em;
+    }
+    body.page-experience .content-text strong,
+    body.page-experience .content-text b {
+        font-size: 10px;
+    }
+    body.page-experience .skill-label {
+        font-size: 10px;
+    }
+    body.page-experience .education-content {
+        width: 100%;
+    }
+    body.page-experience .education-item {
+        height: auto;
+        min-height: auto;
+    }
+    body.page-experience .education-row {
+        flex-wrap: nowrap;
+        gap: 6px 12px;
+        position: relative;
+        width: 100%;
+    }
+    body.page-experience .education-school,
+    body.page-experience .education-degree,
+    body.page-experience .education-time {
+        position: relative;
+        left: auto;
+        top: auto;
+        right: auto;
+        font-size: 10px;
+    }
+    body.page-experience .education-school {
+        min-width: 14em;
+        flex-shrink: 0;
+    }
+    body.page-experience .education-degree {
+        min-width: 5em;
+        flex-shrink: 0;
+    }
+    body.page-experience .education-time {
+        width: auto;
+        margin-left: auto;
+        text-align: right;
+        flex-shrink: 0;
+    }
+    body.page-experience .project-header {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+        padding-right: 0;
+    }
+    body.page-experience .project-title {
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
+        width: auto;
+        max-width: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    body.page-experience .project-title,
+    body.page-experience .project-time {
+        font-size: 10px;
+    }
+    body.page-experience .project-time {
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: auto;
+        min-width: 0;
+        text-align: right;
+    }
+    body.page-experience .download-btn,
+    body.page-experience .download-text {
+        font-size: 13px;
+    }
+
+    /* 确保所有绝对定位的元素在移动端都变为相对定位 */
+    body.index-page section {
+        position: relative;
+    }
+
+    /* 确保所有容器不会溢出 */
+    * {
+        max-width: 100%;
+    }
+}
+
+/* 全站移动端：根级留白陷阱消除 + 主容器与 Footer 统一（参照 Works 逻辑） */
+@media (max-width: 768px) {
+    /* 根绝留白陷阱：所有页面强制 height: auto、min-height: 0，避免 space-between 将 Footer 顶到底部 */
+    html,
+    body,
+    #root,
+    #__next,
+    .main-layout,
+    .main-container,
+    .main-wrapper,
+    .page-container,
+    .page-wrapper,
+    .main-content,
+    body.works-page,
+    body.index-page,
+    body.pj1-page,
+    body.pj2-page,
+    body.pj3-page,
+    body.ow1-page,
+    body.ow2-page,
+    body.ow3-page,
+    body.page-experience {
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    /* 全站移动端：内容按文档流排列，禁止 flex space-between 造成底部大空白 */
+    body.works-page,
+    body.index-page,
+    body.pj1-page,
+    body.pj2-page,
+    body.pj3-page,
+    body.ow1-page,
+    body.ow2-page,
+    body.ow3-page,
+    body.page-experience {
+        display: block !important;
+        justify-content: flex-start !important;
+    }
+
+    /* 清理不可见占位 */
+    .spacer,
+    .footer-spacer,
+    .page-spacer {
+        height: 0 !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
+    }
+
+    /* 作品容器收尾：图片下方无留白 */
+    .works-section-second {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    /* works 手机端蓝框内文字字体、字号与 index 对应内容一致（.works-title / .works-link） */
+    body.works-page .works-section-title {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.4em;
+        color: #080808;
+    }
+    body.works-page .works-section-link {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.4em;
+        color: #080808;
+    }
+
+    /* 全站 Footer 复用 Works 逻辑：相对定位、与内容间距 30–40px、两端对齐（版权左、联系方式右） */
+    body.index-page .footer,
+    body.works-page .footer,
+    body.pj1-page .footer,
+    body.pj2-page .footer,
+    body.pj3-page .footer,
+    body.ow1-page .footer,
+    body.ow2-page .footer,
+    body.ow3-page .footer,
+    body.page-experience .footer {
+        position: relative !important;
+        top: auto !important;
+        left: auto;
+        bottom: auto;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 0;
+        margin: 0 auto;
+        margin-top: 40px !important;
+        margin-bottom: 20px;
+        padding: 0 20px;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        box-sizing: border-box;
+    }
+    body.page-experience .footer {
+        width: 82vw;
+        max-width: 82vw;
+    }
+}
